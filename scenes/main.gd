@@ -110,7 +110,8 @@ func _spawn_clouds():
 func _update_camera():
 	# 原始逻辑：根据 y_speed 调整相机跟随速度
 	# 基准位置为静止时的相机位置，y_now 增加时相机上移
-	var target_y := (GROUND_Y - STAGE_H * 0.4) - GameConfig.y_now
+	var rest_y := GROUND_Y - STAGE_H * 0.4
+	var target_y := rest_y - GameConfig.y_now
 	var div := 10.0
 	
 	if player.y_speed > 20.0:
@@ -120,6 +121,11 @@ func _update_camera():
 			div = 2.0
 		else:
 			div = 2.02
+		# 原版逻辑：下落较快且角色已掉回 0 线以下时，相机直接回到基准位，避免角色掉出屏幕
+		if player.position.y > 0.0:
+			camera.position.y = rest_y
+			background.position = camera.position
+			return
 	
 	camera.position.y += (target_y - camera.position.y) / div
 	# 背景跟随相机，始终铺满屏幕
