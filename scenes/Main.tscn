@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://djeb0cuoeaeet"]
+
+[ext_resource type="PackedScene" uid="uid://l223k0nuf2s5" path="res://scenes/Player.tscn" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://baug6sjxte6y2" path="res://scenes/main.gd" id="1_uu6xs"]
+[ext_resource type="Texture2D" uid="uid://c27bl0dyc6fly" path="res://Res/bg.png" id="2_vcsgt"]
+[ext_resource type="AudioStream" uid="uid://dqcs5oms5wjow" path="res://Res/bgm.mp3" id="3_0bbpv"]
+[ext_resource type="Script" uid="uid://c8bgm7s4t5lan" path="res://scenes/bgm.gd" id="4_hx3sx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c01mt"]
+atlas = ExtResource("2_vcsgt")
+
+[node name="Node2D" type="Node2D" unique_id=1716401263]
+script = ExtResource("1_uu6xs")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1380897879]
+position = Vector2(469.99997, 312.5)
+scale = Vector2(0.56220096, 0.6663124)
+texture = SubResource("AtlasTexture_c01mt")
+
+[node name="GameWorld" type="Node2D" parent="." unique_id=995982306]
+
+[node name="CirrusLayer" type="Node2D" parent="GameWorld" unique_id=816751728]
+
+[node name="FlyingLayer" type="Node2D" parent="GameWorld" unique_id=1510426468]
+
+[node name="Player" parent="GameWorld" unique_id=1556721254 instance=ExtResource("1_glv2v")]
+
+[node name="GameCamera" type="Camera2D" parent="." unique_id=1980905496]
+position = Vector2(470, 330)
+limit_left = 0
+limit_right = 940
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1830060278]
+
+[node name="ScoreLabel" type="Label" parent="UI" unique_id=281045739]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ComboLabel" type="Label" parent="UI" unique_id=542797701]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1420285539]
+stream = ExtResource("3_0bbpv")
+script = ExtResource("4_hx3sx")
